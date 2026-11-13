@@ -15,9 +15,11 @@ OUTPUT_PATH = "/output/entry.txt"
 
 def main() -> None:
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    # Exactly the joke text, UTF-8, no trailing newline.
-    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as f:
-        f.write(JOKE)
+    # Exactly the joke text, UTF-8, no trailing newline. Write the encoded
+    # bytes in binary mode so the output is byte-exact regardless of the
+    # platform's default text encoding or newline translation.
+    with open(OUTPUT_PATH, "wb") as f:
+        f.write(JOKE.encode("utf-8"))
 
 
 if __name__ == "__main__":
